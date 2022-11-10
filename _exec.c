@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * hsh_exec - function that runs prompt on cmdline
+ * @args: cmd arguments
+ *
+ * Return: 0
+ */
 void hsh_exec(char **args)
 {
 	for (int i = 0; i < hsh_num_builtins(); i++)

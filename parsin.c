@@ -1,6 +1,10 @@
 #include "main.h"
 
-char* hsh_read_line(void)
+/**
+ * hsh_read_line - function that reads cmd inputs
+ * Return: always 0
+ */
+char *hsh_read_line(void)
 {
 	char *line = NULL;
 	size_t buflen = 0;
@@ -8,7 +12,11 @@ char* hsh_read_line(void)
 	return line;
 }
 
-char** hsh_split_line(char *line)
+/**
+ * hsh_split_line - uses strtok call to func
+ * @line: checks cmd line args
+ */
+char **hsh_split_line(char *line)
 {
 	int length = 0;
 	int capacity = 16;
