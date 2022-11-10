@@ -13,22 +13,33 @@ void hsh_cd(char **args);
 void hsh_help(char **args);
 void hsh_exec(char **args);
 
-struct builtin {
+/**
+ * struct builtin - struct func for cmd line args
+ * @name: char varaible
+ * @func: cmd arg
+ */
+struct builtin
+{
 	char *name;
 	void (*func)(char **args);
 };
 
+/**
+ * struct builtin - string func for cmd builtin commands
+ * @builtins: string
+ */
 struct builtin builtins[] = {
+
 	{"help", hsh_help},
 	{"exit", hsh_exit},
-	{"cd", hsh_cd},
+	{"cd", hsh_cd}
 };
 
-int hsh_num_builtins();
+int hsh_num_builtins(void);
 
 /*loop & execv*/
-char* hsh_read_line();
-char** hsh_split_line(char *line);
+char *hsh_read_line(void);
+char **hsh_split_line(char *line);
 void hsh_exec(char **args);
 
 #endif /*main.h*/

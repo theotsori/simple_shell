@@ -2,6 +2,7 @@
 
 /**
  * main - display prompt and read user input
+ * Return: always 0
  */
 
 int main(void)
