@@ -33,7 +33,7 @@ void hsh_help(char **args)
 	}
 
 	printf("Use the man command for more info on other programs");
-	return 1;
+	return;
 }
 
 int hsh_num_builtins()

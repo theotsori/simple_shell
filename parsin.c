@@ -9,7 +9,7 @@ char *hsh_read_line(void)
 	char *line = NULL;
 	size_t buflen = 0;
 	getline(&line, &buflen, stdin);
-	return line;
+	return (line);
 }
 
 /**

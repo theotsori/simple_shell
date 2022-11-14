@@ -2,6 +2,7 @@
 
 /**
  * main - display prompt and read user input
+ *
  * Return: always 0
  */
 
@@ -9,7 +10,7 @@ int main(void)
 {
 	while (true)
 	{
-		printf("$ ");
+		printf("($) ");
 		char *line = hsh_read_line();
 		char **tokens = hsh_split_line(line);
 
@@ -21,4 +22,6 @@ int main(void)
 		free(tokens);
 		free(line);
 	}
+
+	return (0);
 }
