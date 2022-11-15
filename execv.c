@@ -1,5 +1,8 @@
-#include "shell.h"
+#include "main.h"
 
+/**
+ *
+ */
 int hsh_launch(char **args)
 {
 	pid_t pid;
@@ -8,6 +11,7 @@ int hsh_launch(char **args)
 	pid = fork();
 	if (pid == 0)
 	{
+
 		if (execvp(args[0], args) == -1)
 		{
 			perror("hsh");
@@ -16,36 +20,39 @@ int hsh_launch(char **args)
 	}
 	else if (pid < 0)
 	{
+
 		perror("hsh");
 	}
 	else
 	{
-		do
-		{
+
+		do {
 			waitpid(pid, &status, WUNTRACED);
-		}
-		while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
 	return (1);
 }
 
+/**
+ *
+ */
 int hsh_execute(char **args)
 {
 	int i;
 
 	if (args[0] == NULL)
 	{
-		return 1;
+
+		return (1);
 	}
 
 	for (i = 0; i < hsh_num_builtins(); i++)
 	{
-		if (strcmp(args[0], builtin_str[i] = 0))
+		if (strcmp(args[0], builtin_str[i]) == 0)
 		{
-			return (*builtin_func[i])(args);
+			return ((*builtin_func[i])(args));
 		}
 	}
-
-	return hsh_launch(args);
+	return (hsh_launch(args));
 }

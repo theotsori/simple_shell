@@ -1,45 +1,45 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <string.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 #include <unistd.h>
-void hsh_exit(char **args);
-void hsh_cd(char **args);
-void hsh_help(char **args);
-void hsh_exec(char **args);
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-/**
- * struct builtin - struct func for cmd line args
- * @name: char varaible
- * @func: cmd arg
- */
-struct builtin
-{
-	char *name;
-	void (*func)(char **args);
+/* builtin shell commands */
+int hsh_cd(char **args);
+int hsh_help(char **args);
+int hsh_exit(char **args);
+
+/* list of builtin commands */
+char *builtin_str[] = {
+	"cd",
+	"help",
+	"exit"
 };
 
-/**
- * struct builtin - string func for cmd builtin commands
- * @builtins: string
- */
-struct builtin builtins[] = {
-
-	{"help", hsh_help},
-	{"exit", hsh_exit},
-	{"cd", hsh_cd}
+int (*builtin_func[]) (char **) = {
+	&hsh_cd,
+	&hsh_help,
+	&hsh_exit
 };
 
 int hsh_num_builtins(void);
 
-/*loop & execv*/
-char *hsh_read_line(void);
-char **hsh_split_line(char *line);
-void hsh_exec(char **args);
+int hsh_cd(char **args);
+int hsh_help(char **args);
+int hsh_exit(char **args);
 
-#endif /*main.h*/
+int hsh_launch(char **args);
+int hsh_execute(char **args);
+char *hsh_read_line(void);
+
+#define HSH_TOK_BUFSIZE 64
+#define HSH_TOK_DELIM " \t\r\n\a"
+
+char **hsh_split_line(char *line);
+void hsh_loop(void);
+
+#endif
