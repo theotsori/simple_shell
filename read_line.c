@@ -1,29 +1,13 @@
 #include "main.h"
 
+#define HSH_RL_BUFSIZE 1024
 /**
- *
+ * hsh_read_line - function that reads what the user
+ * has written on the command line
+ * Return: buffer
  */
 char *hsh_read_line(void)
 {
-#ifdef HSH_USE_STD_GETLINE
-	char *line = NULL;
-	ssize_t bufsize = 0;
-
-	if (getline(&line, &bufsize, stdin) == -1)
-	{
-		if (feof(stdin))
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			perror("hsh: getline\n");
-			exit(EXIT_FAILURE);
-		}
-	}
-	return (line);
-#else
-#define HSH_RL_BUFSIZE 1024
 	int bufsize = HSH_RL_BUFSIZE;
 	int position = 0;
 	char *buffer = malloc(sizeof(char) * bufsize);
@@ -39,11 +23,7 @@ char *hsh_read_line(void)
 	{
 		c = getchar();
 
-		if (c == EOF)
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else if (c == '\n')
+		if (c == EOF || c == '\n')
 		{
 			buffer[position] = '\0';
 			return (buffer);
@@ -66,5 +46,4 @@ char *hsh_read_line(void)
 			}
 		}
 	}
-#endif
 }

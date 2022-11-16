@@ -1,10 +1,18 @@
 #include "main.h"
 
+#define HSH_TOK_BUFSIZE 64
+#define HSH_TOK_DELIM " \t\r\n\a"
+
+/**
+ * hsh_split_line - function that makes the shell run
+ * @line: reads what is typed by user
+ * Return: space allocated to shell
+ */
 char **hsh_split_line(char *line)
 {
 	int bufsize = HSH_TOK_BUFSIZE, position = 0;
 	char **tokens = malloc(bufsize * sizeof(char *));
-	char *token, **tokens_backup;
+	char *token;
 
 	if (!tokens)
 	{
@@ -21,12 +29,10 @@ char **hsh_split_line(char *line)
 		if (position >= bufsize)
 		{
 			bufsize += HSH_TOK_BUFSIZE;
-			tokens_backup = tokens;
 			tokens = realloc(tokens, bufsize * sizeof(char *));
 
 			if (!tokens)
 			{
-				free(tokens_backup);
 				fprintf(stderr, "hsh: allocation error\n");
 				exit(EXIT_FAILURE);
 			}
@@ -36,34 +42,4 @@ char **hsh_split_line(char *line)
 	}
 	tokens[position] = NULL;
 	return (tokens);
-}
-
-/**
- *
- */
-void hsh_loop(void)
-{
-	char *line;
-	char **args;
-	int status;
-
-	do {
-		printf("$ ");
-		line = hsh_read_line();
-		args = hsh_split_line(line);
-		status = hsh_execute(args);
-
-		free(line);
-		free(args);
-	} while (status);
-}
-
-/**
- *
- */
-int main(__attribute__((unused))int argc, __attribute__((unused))char *argv[])
-{
-	hsh_loop();
-
-	return (EXIT_SUCCESS);
 }
